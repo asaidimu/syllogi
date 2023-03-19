@@ -1,0 +1,33 @@
+name: Test
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+  build:
+      strategy:
+        matrix:
+          package: ["@syllogi/server", "@syllogi/client", "@syllogi/model"]
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+
+        - name: setup node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18.6
+
+        - name: setup yarn
+          run: |
+            yarn set version stable
+            yarn install
+
+        - name: build
+          run: yarn workspace ${{ matrix.package }} build:test
+
+        - name: test
+          run: yarn workspace ${{ matrix.package }} test

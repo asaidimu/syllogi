@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "esnext",
+        "target": "esnext",
+        "declaration": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noLib": false,
+        "sourceMap": true
+    },
+    "exclude": ["node_modules", "**/*.spec.ts"]
+
+
+}

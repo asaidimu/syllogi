@@ -1,0 +1,24 @@
+{
+  "name": "@syllogi/model",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Saidimu <47994458+asaidimu@users.noreply.github.com>",
+  "homepage": "",
+  "license": "MIT",
+  "typings": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "echo test",
+    "build": "echo build",
+    "build:test": "echo build:test",
+    "build:docker": "echo build:docker",
+    "ci": "yarn install --immutable"
+  }
+}

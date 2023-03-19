@@ -1,0 +1,20 @@
+{
+ "extends": "../../tsconfig.json",
+ "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "lib": ["esnext"],
+    "rootDirs": ["src", "lib"],
+    "outDir": "./lib",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "incremental": true
+ },
+ "include": [
+   "./src/**/*",
+   "./index.ts",
+   "./test/**/*"
+ ],
+"exclude": ["node_modules", "./test/fixtures/**/*"]
+}
