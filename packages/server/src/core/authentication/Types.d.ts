@@ -6,14 +6,14 @@ interface PasswordValidator {
     (args: { password: string; hash: string }): Promise<boolean>;
 }
 
-type AuthTokenPayload = Login & { exp: number }
+type AuthTokenPayload = SystemLogin & { exp: number }
 
 interface AuthTokenValidator {
     (args: { token: string }): Promise<AuthTokenPayload | null>;
 }
 
 interface AuthTokenGenerator {
-    (args: Login): Promise<string>;
+    (args: SystemLogin): Promise<string>;
 }
 
 interface AccessPolicyGenerator {

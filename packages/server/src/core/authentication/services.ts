@@ -7,12 +7,13 @@ const secretKey = createSecretKey(process.env.JWT_SECRET as string, "utf-8");
 const keys: Array<string> = [];
 
 export const generateAuthToken: AuthTokenGenerator = async (args) => {
-    const { uid, groups } = args;
-    const token = await new SignJWT({ uid, groups })
+    const { id, groups } = args;
+    const token = await new SignJWT({ id, groups })
         .setProtectedHeader({ alg: "HS256" })
         .setExpirationTime("8h")
         .sign(secretKey);
 
+    keys.push(token)
     return token;
 };
 

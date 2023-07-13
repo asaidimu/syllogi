@@ -1,27 +1,26 @@
-import { asFunction, asValue, AwilixContainer, createContainer } from "awilix"
-import prisma from "../store/index.js"
-import authentication from "../authentication/index.js"
-import Server from "../server/index.js"
-import strategies from "./strategies.js"
+import { asFunction, asValue, AwilixContainer, createContainer } from "awilix";
+import authentication from "../authentication/index.js";
+import Server from "../server/index.js";
+import strategies from "./strategies.js";
 
-
-const Container  = async ({ root }: Config): Promise<AwilixContainer<System>> => {
-    const container = createContainer()
+const Container = async ({ root, db }: Config): Promise<AwilixContainer<System>> => {
+    const container = createContainer();
 
     container.register({
         scope: asFunction(() => container.createScope()),
         server: asFunction(Server),
-        authentication: asValue(authentication)
-    })
+        authentication: asValue(authentication),
+    });
 
     container.register({
-        db: asValue(prisma)
-    })
-    for(const strategy of strategies) {
-        await strategy({ container, root })
+        db: asValue(db),
+    });
+
+    for (const strategy of strategies) {
+        await strategy({ container, root });
     }
 
-    return container
-}
+    return container;
+};
 
-export default Container
+export default Container;

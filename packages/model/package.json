@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Saidimu <47994458+asaidimu@users.noreply.github.com>",
-  "homepage": "",
   "license": "MIT",
   "typings": "lib/index.d.ts",
+  "main": "lib/index.js",
   "type": "module",
   "directories": {
     "lib": "lib"
@@ -16,9 +16,21 @@
   "scripts": {
     "tsc": "tsc",
     "test": "echo test",
-    "build": "echo build",
+    "migrate:reset": "yarn prisma migrate reset",
+    "migrate:deploy": "yarn prisma migrate deploy",
+    "migrate:dev": "yarn prisma migrate dev",
+    "build:ci": "yarn tsc",
+    "build:watch": "yarn tsc --watch",
     "build:test": "echo build:test",
-    "build:docker": "echo build:docker",
+    "build:docker": "cd ../../ && yarn docker-ctx -p '@syllogi/model' -c packages/model/Dockerfile | docker build --build-arg PACKAGE_NAME='@syllogi/model' - -t syllogi-model",
     "ci": "yarn install --immutable"
+  },
+  "devDependencies": {
+    "prisma": "latest",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@prisma/client": "latest",
+    "zod": "^3.20.6"
   }
 }

@@ -1,14 +1,16 @@
 {
  "extends": "../../tsconfig.json",
  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "nodenext",
     "lib": ["esnext"],
-    "rootDirs": ["src", "lib"],
+    "rootDirs": ["src", "./lib"],
     "outDir": "./lib",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowJs": false,
+    "allowJs": true,
     "incremental": true
  },
  "include": [

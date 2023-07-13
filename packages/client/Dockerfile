@@ -17,14 +17,11 @@ RUN yarn workspaces focus "${PACKAGE_NAME}"
 COPY ./deps .
 
 # build dependencies
-RUN yarn workspaces foreach --exclude "${PACKAGE_NAME}" run build
+RUN yarn workspaces foreach --exclude "${PACKAGE_NAME}" run build:ci
 
 # copy source files
 COPY ./pkg .
-RUN yarn workspace "${PACKAGE_NAME}" run build
-
-# set installation path
-#WORKDIR /root/app/packages/client
+RUN yarn workspace "${PACKAGE_NAME}" run build:ci
 
 # nginx to serve the client
 FROM nginx:1.23.3-alpine as server

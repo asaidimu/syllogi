@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
         "strict": true,
-        "module": "esnext",
-        "target": "esnext",
         "declaration": true,
         "noImplicitAny": true,
         "removeComments": true,

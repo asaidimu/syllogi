@@ -13,7 +13,9 @@ export const decodeAuthToken: Middleware = async (req, _, next) => {
         return matches[1];
     };
 
-    const token = tokenFrom({ header: req.get('Authorization') as string })
+    const headerToken = tokenFrom({ header: req.get('Authorization') as string })
+    const cookieToken = req.cookies.auth_token || null
+    const token = cookieToken !== null ? cookieToken : headerToken
 
     if (token !== null) {
         const login = await validateAuthToken({ token })
@@ -36,7 +38,7 @@ export const allow: AccessPolicyGenerator = ({ groups, check}={groups:[], check:
             return error()
         }
 
-        const { groups }:Login = login
+        const { groups }:SystemLogin = login
 
         /*
          * get intersection of groups to which the subject belongs and groups

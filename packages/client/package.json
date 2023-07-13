@@ -13,15 +13,16 @@
     "start": "vite",
     "dev": "vite",
     "test": "echo test",
-    "build": "vite build",
-    "postbuild": "rm -rf src",
+    "prebuild:ci": "yarn clean",
+    "clean": "rm -rf dist",
+    "build:ci": "vite build",
+    "postbuild:ci": "rm -rf src",
     "build:test": "pwd",
     "build:docker": "cd ../../ && yarn docker-ctx -p '@syllogi/client' -c packages/client/Dockerfile | docker build --build-arg PACKAGE_NAME='@syllogi/client' - -t syllogi-client",
     "serve": "vite preview",
     "ci": "yarn install --immutable"
   },
   "devDependencies": {
-    "docker-ctx": "^1.0.1",
     "typescript": "^4.9.4",
     "vite": "^4.0.3",
     "vite-plugin-solid": "^2.5.0"

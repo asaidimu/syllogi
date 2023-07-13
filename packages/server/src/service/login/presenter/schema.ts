@@ -1,10 +1,7 @@
-import { z, ZodType } from "zod"
+import { Validator } from "@syllogi/model"
 
-const credentials: ZodType = z.object({
-    id: z.number(),
-    password: z.string()
-})
-
-export default {
-    "POST:/": credentials
+const validator = {
+    "POST:/authenticate": Validator.LoginCredentials
 }
+
+export default validator

@@ -31,7 +31,7 @@ export const validateRequestBody = (schema?: ValidationSchema): Middleware => {
         if (!result.success) {
             res.status(400).send({ error: 'Bad Request' })
             const { error } = result as SafeParseError<any>
-            console.warn(error)
+            console.warn(error.message)
             return
         }
 
