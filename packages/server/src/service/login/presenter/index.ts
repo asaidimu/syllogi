@@ -1,5 +1,5 @@
 function LoginPresenter(route: Route<LoginController>) {
-    const { router, validate, controller, authentication: auth } = route;
+    const { router, validate, controller, auth } = route;
 
     router.post("/authenticate", validate, async (req, res) => {
         const { username, password } = req.body;

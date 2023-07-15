@@ -10,7 +10,7 @@ datasource db {
 
 model LoginGroup {
   id         Int      @id @default(autoincrement())
-  name       String
+  name       String   @unique
   createdOn  DateTime @default(now())
 }
 

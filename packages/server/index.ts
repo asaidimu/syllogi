@@ -1,9 +1,30 @@
-import { dirname } from "path";
+import path, { dirname } from "path";
+import { PrismaClient } from '@prisma/client'
 import { fileURLToPath } from "url";
-import app from "./src/core/index.js";
-import schema from "@syllogi/model"
+import core from "./src/core/index.js";
+import yargs from "yargs";
+const prisma = new PrismaClient()
 
-app.start({
-    root: dirname(fileURLToPath(import.meta.url)),
-    db: schema,
-});
+const argv = await yargs(process.argv.slice(2)).options({
+  seed: { type: 'boolean', default: false },
+  serve: {type: 'boolean', default: false}
+}).argv;
+
+const root = dirname(fileURLToPath(import.meta.url))
+const app = await core({
+    root,
+    db: prisma,
+    logs: {
+        local : {
+            root: path.join(root, ".logs"),
+            file: "system.log"
+        },
+    }
+})
+
+if(argv.seed) {
+    await app.seed()
+    process.exit()
+} else if(argv.serve) {
+    app.start();
+}

@@ -1,10 +1,11 @@
-import { DataModel } from "@syllogi/model";
+import { PrismaClient } from '@prisma/client'
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const root = `${process.cwd()}/dist`
+const root = `${process.cwd()}/dist`;
 
 import { mockDeep } from "jest-mock-extended";
+import path from "path";
 
 export const mockContainer = async () => {
     const { default: Container } = await import(
@@ -12,7 +13,13 @@ export const mockContainer = async () => {
     );
     const container = await Container({
         root,
-        db: mockDeep<DataModel>(),
+        db: mockDeep<PrismaClient>(),
+        logs: {
+            local: {
+                root: path.join(root, "./test/logs"),
+                file: "system.log",
+            },
+        },
     });
     return container;
 };

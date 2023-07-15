@@ -3,7 +3,7 @@ import { mockContainer } from "../../mock/index.js";
 
 interface State {
     utils: UtilityFunctions
-    logger: Logger
+    logger: SystemLogger
 }
 let container: AwilixContainer<System> | null = null;
 
@@ -32,7 +32,8 @@ test("exclude() can exclude specific values from an object", () => {
 
 test("tryLog() can catch and log errors", async () => {
     const fn = async () => {
-        throw new Error("Error")
+        /* @ts-ignore */
+        undefinedFunction()
     }
     const result = await state!.logger.tryLog(fn, false)
     expect(result).toEqual(false)

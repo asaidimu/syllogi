@@ -74,6 +74,12 @@ const controllers: LoadStrategy = async ({ container, root }) => {
     }
 };
 
+/* TODO: Implement importation of utilities as one strategy.
+ * For instance, have the index file under utilities import and export
+ * all defined modules in the folder, then iterate through the exported object
+ * and register each individually
+ * */
+
 const utilities: LoadStrategy = async ({ container, root }) => {
     const base = "src/lib";
     const match = `${format({ base, dir: root })}/utilities/index.js`;
@@ -85,28 +91,23 @@ const utilities: LoadStrategy = async ({ container, root }) => {
     }
 };
 
-/* TODO: Jul 13, 2023 Saidimu
- * Implement importation of utilities as one strategy.
- * For instance, have the index file under utilities import and export
- * all defined modules in the folder, then iterate through the exported object
- * and register each individually
- * */
-const logger: LoadStrategy = async ({ container, root }) => {
+const validators: LoadStrategy = async ({ container, root }) => {
     const base = "src/lib";
-    const match = `${format({ base, dir: root })}/utilities/logger.js`;
+    const match = `${format({ base, dir: root })}/validator/index.js`;
     const utils = listModules([match])[0];
     if (utils) {
         container.register({
-            logger: asValue((await import(utils.path)).default),
+            schema: asValue((await import(utils.path)).default),
         });
     }
 };
+
 
 const strategies: Array<LoadStrategy> = [
     controllers,
     routes,
     utilities,
-    logger,
+    validators
 ];
 
 export default strategies;

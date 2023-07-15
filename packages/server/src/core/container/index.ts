@@ -1,15 +1,20 @@
 import { asFunction, asValue, AwilixContainer, createContainer } from "awilix";
+import seeder from "../../seed/index.js";
 import authentication from "../authentication/index.js";
+import initSystemLogger from "../logger/index.js";
 import Server from "../server/index.js";
 import strategies from "./strategies.js";
 
-const Container = async ({ root, db }: Config): Promise<AwilixContainer<System>> => {
+const Container = async ({ root, db, logs }: Config): Promise<AwilixContainer<System>> => {
     const container = createContainer();
+    const logger = await initSystemLogger(logs)
 
     container.register({
         scope: asFunction(() => container.createScope()),
         server: asFunction(Server),
-        authentication: asValue(authentication),
+        auth: asValue(authentication),
+        logger: asValue(logger),
+        seeder: asFunction(seeder)
     });
 
     container.register({

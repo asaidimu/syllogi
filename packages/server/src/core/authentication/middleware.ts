@@ -1,7 +1,7 @@
 import { validateAuthToken } from "./services.js";
 
-export enum AccessControlGroup {
-    ROOT = 0,
+enum AccessControlGroup {
+    ROOT = 1
 }
 
 export const decodeAuthToken: Middleware = async (req, _, next) => {
@@ -13,42 +13,54 @@ export const decodeAuthToken: Middleware = async (req, _, next) => {
         return matches[1];
     };
 
-    const headerToken = tokenFrom({ header: req.get('Authorization') as string })
-    const cookieToken = req.cookies.auth_token || null
-    const token = cookieToken !== null ? cookieToken : headerToken
+    const headerToken = tokenFrom({
+        header: req.get("Authorization") as string,
+    });
+    const cookieToken = req.cookies.auth_token || null;
+    const token = cookieToken !== null ? cookieToken : headerToken;
 
     if (token !== null) {
-        const login = await validateAuthToken({ token })
-        req.login = login
+        const login = await validateAuthToken({ token });
+        req.login = login;
     }
 
-    next()
+    next();
 };
 
-
-export const allow: AccessPolicyGenerator = ({ groups, check}={groups:[], check: () => true}) => {
-    const allowed = Array.isArray(groups) ? groups : [ groups ]
+export const allow: AccessPolicyGenerator = (
+    { groups, check } = { groups: [], check: () => true }
+) => {
+    const allowed = Array.isArray(groups) ? groups : [groups];
 
     return (req, res, next) => {
-        const error = () => res.status(403).send({ error: 'Unauthorized' })
+        const error = () => res.status(403).send({ error: "Unauthorized" });
 
-        const login:AuthTokenPayload | null = req.login!
+        const login: AuthTokenPayload | null = req.login!;
 
-        if(login === null || login === undefined ) {
-            return error()
+        if (!login) {
+            return error();
         }
 
-        const { groups }:SystemLogin = login
+        const { groups }: SystemLogin = login;
 
         /*
-         * get intersection of groups to which the subject belongs and groups
-         * to whom access is allowed
+         * Filter out the groups which satisfy the following conditions:
+         *  a). The group in question is allowed access to the resource
+         *  b). The user is a member of the said group.
          */
-        const accessibleGroups = groups.filter(require => allowed.findIndex(allow => allow === require) !== -1)
+        const accessibleGroups = groups.reduce((acc, curr) => {
+            if (allowed.findIndex((i) => i === curr) !== -1) {
+                acc.push(curr);
+            }
+            return acc;
+        }, [] as Array<number>);
 
         const isRoot = () => {
-            return accessibleGroups.findIndex(a => a === AccessControlGroup.ROOT) !== -1
-        }
+            const index = accessibleGroups.findIndex(
+                (a) => a === AccessControlGroup.ROOT
+            );
+            return index !== -1;
+        };
 
         /* If no groups in common subject is denied access */
 
@@ -61,16 +73,16 @@ export const allow: AccessPolicyGenerator = ({ groups, check}={groups:[], check:
          * allow access
          */
 
-        if(accessibleGroups.length > 0 && (isRoot || check!(login))) {
-            return next()
+        if (accessibleGroups.length > 0 && (isRoot || check!(login))) {
+            return next();
         }
 
-        return error()
-    }
-}
+        return error();
+    };
+};
 
 /*
- * Assumptions:
+ * Rules:
  * - all subjects have a security id
  * - all subjects must belong to at least one group
  * - all groups have a security id

@@ -1,12 +1,12 @@
 import request from "supertest";
 import { Http2Server } from "http2";
 import { DeepMockProxy } from "jest-mock-extended";
-import { DataModel } from "@syllogi/model";
 import { AwilixContainer } from "awilix";
 import { mockContainer } from "../../../mock/index.js";
+import { PrismaClient } from '@prisma/client'
 
 interface State {
-    db: DeepMockProxy<DataModel>;
+    db: DeepMockProxy<PrismaClient>;
     app: Http2Server;
 }
 
@@ -26,12 +26,12 @@ let state: State | null = null;
 
 beforeAll(async () => {
     container = await mockContainer();
-    const auth:Authentication = await container?.resolve("authentication")!
+    const auth:Authentication = await container?.resolve("auth")!
     login.password = await auth.hashPassword({ password: loginPassword})
 });
 
 beforeEach(async () => {
-    const db:DeepMockProxy<DataModel> = container?.resolve("db")!;
+    const db:DeepMockProxy<PrismaClient> = container?.resolve("db")!;
     const server:Server = await container?.resolve("server")!;
     state = { app:server.app, db} as any;
 });

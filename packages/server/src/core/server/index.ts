@@ -29,37 +29,26 @@ app.use(cors())
 /* prevent caching */
 app.disable('etag');
 
-const Server = async ({ routes, db, authentication, scope }:System): Promise<Server> => {
-    app.use(authentication.decodeAuthToken)
+const Server = async ({ routes, auth, scope }:System): Promise<Server> => {
+    app.use(auth.decodeAuthToken)
 
     /* routes */
     routes.forEach(({ path, io, controller, schema }) => {
         const router = Router()
         const routeController = scope.resolve(controller)
         const validate = validateRequestBody(schema)
-        io({ router, controller: routeController, validate, authentication, allow:authentication.allow })
+        io({ router, controller: routeController, validate, auth, allow:auth.allow })
         app.use(path, router);
     })
 
     const port = process.env.HTTP_PORT || 3000
-
     return {
         app,
         listen() {
             const server = app.listen(port, () => {
                 console.log(`Started server on port ${port}!`)
             })
-
-            const closeEvents = ['SIGINT', 'SIGHUP']
-
-            closeEvents.forEach(e => {
-                process.on(e, async () => {
-                    console.log(`Stopping server!`)
-                    server.close()
-                    await db.$disconnect()
-                });
-            })
-
+            return server
         },
     }
 }

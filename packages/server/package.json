@@ -14,26 +14,33 @@
         "lib"
     ],
     "scripts": {
-        "tsc": "tsc",
-        "start": "node dist/index.js",
-        "dev": "nodemon dist/index.js",
-        "docs": "jsdoc system -r -c .jsdocrc.json -d docs",
-        "prebuild:ci": "yarn clean",
-        "build": "yarn tsc",
         "build:ci": "yarn tsc",
-        "postbuild:ci": "rm -rf src",
+        "build:dist": "./bin/dist.sh",
+        "build:docker": "./bin/docker.sh --image",
+        "build:next": "./bin/next.sh",
+        "build:test": "echo build:test",
         "build:watch": "yarn tsc --watch",
+        "build": "yarn tsc",
         "ci": "yarn install --immutable",
         "clean": "rm -rf dist",
-        "debug": "node --inspect-brk ./dist/index.js --no-watch",
         "debug:loop": "while true; do yarn debug; done",
+        "debug": "node --inspect-brk ./dist/index.js --no-watch",
+        "dev": "nodemon dist/index.js",
+        "docs": "jsdoc system -r -c .jsdocrc.json -d docs",
+        "migrate:deploy": "yarn prisma migrate deploy",
+        "migrate:dev": "yarn prisma migrate dev",
+        "migrate:reset": "yarn prisma migrate reset",
+        "postbuild:ci": "rm -rf src",
+        "prebuild:ci": "yarn clean",
+        "prestart:docker": "build:docker",
         "pretest:ci": "yarn build",
-        "test": "yarn node --experimental-vm-modules --no-warnings=ExperimentalWarning $(yarn bin jest) --detectOpenHandles",
-        "test:watch": "yarn node --experimental-vm-modules --no-warnings=ExperimentalWarning $(yarn bin jest)  --detectOpenHandles --watch",
+        "seed": "node dist/index.js --seed",
+        "start:docker": "./bin/docker.sh --container",
+        "start": "node dist/index.js --serve",
         "test:ci": "yarn test",
         "test:push": "yarn build && yarn test && yarn semantic-release",
-        "build:test": "echo build:test",
-        "build:docker": "cd ../../ && yarn docker-ctx -p '@syllogi/server' -c packages/server/Dockerfile | docker build --build-arg PACKAGE_NAME='@syllogi/server' - -t syllogi-server"
+        "test:watch": "yarn node --experimental-vm-modules --no-warnings=ExperimentalWarning $(yarn bin jest)  --detectOpenHandles --watch",
+        "test": "yarn node --experimental-vm-modules --no-warnings=ExperimentalWarning $(yarn bin jest) --detectOpenHandles"
     },
     "devDependencies": {
         "@faker-js/faker": "^7.3.0",
@@ -51,11 +58,12 @@
         "node-notifier": "^10.0.1",
         "nodemon": "^2.0.20",
         "prettier": "^2.3.2",
+        "prisma": "latest",
         "supertest": "^6.2.4",
         "typescript": "^4.9.4"
     },
     "dependencies": {
-        "@syllogi/model": "^0.0.0",
+        "@prisma/client": "latest",
         "argon2": "^0.28.5",
         "awilix": "^4.3.3",
         "body-parser": "^1.20.0",
@@ -66,6 +74,8 @@
         "helmet": "^5.1.0",
         "http-status": "^1.5.0",
         "jose": "^4.8.3",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "yargs": "^17.7.2",
+        "zod": "^3.20.6"
     }
 }

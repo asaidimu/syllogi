@@ -1,24 +1,24 @@
-import { DataModel } from "@syllogi/model";
 import { Request, Router } from "express";
+import { Writable } from "stream";
 import { ZodType } from "zod";
 
 declare global {
-    /*  TODO: Jul 13, 2023 Saidimu
-     *  Add config option that specifies where logs go
-     *  eg:
-     *  logs: {
-     *      network:uri,
-     *      system:uri
-     *  }
-     *  */
+
     interface Config {
         root: string;
-        db: DataModel | DeepMockProxy<DataModel>;
+        db: PrismaClient | DeepMockProxy<PrismaClient>;
+        logs: {
+            stream?: Writable
+            local: {
+                root: string,
+                file?:string
+            }
+        };
     }
 
     interface Route<Controller> {
         router: Router;
-        authentication: Authentication;
+        auth: Authentication;
         controller: Controller;
         allow: AccessPolicyGenerator;
         validate: Middleware;
@@ -59,13 +59,14 @@ declare global {
     }
 
     interface System {
-        db: DataModel;
+        db: PrismaClient;
         server: Server;
-        authentication: Authentication;
+        auth: Authentication;
         scope: AwilixContainer<System>;
         routes: Array<RouteComponents>;
         utils: UtilityFunctions;
         logger: Logger;
+        seeder: Function
         [key: string | symbol]: any;
     }
 

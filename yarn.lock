@@ -1361,22 +1361,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@syllogi/client@workspace:packages/client"
   dependencies:
-    "@syllogi/model": ^0.0.0
     solid-js: ^1.6.6
     typescript: ^4.9.4
     vite: ^4.0.3
     vite-plugin-solid: ^2.5.0
-  languageName: unknown
-  linkType: soft
-
-"@syllogi/model@^0.0.0, @syllogi/model@workspace:packages/model":
-  version: 0.0.0-use.local
-  resolution: "@syllogi/model@workspace:packages/model"
-  dependencies:
-    "@prisma/client": latest
-    prisma: latest
-    typescript: ^4.9.4
-    zod: ^3.20.6
   languageName: unknown
   linkType: soft
 
@@ -1385,7 +1373,7 @@ __metadata:
   resolution: "@syllogi/server@workspace:packages/server"
   dependencies:
     "@faker-js/faker": ^7.3.0
-    "@syllogi/model": ^0.0.0
+    "@prisma/client": latest
     "@types/body-parser": ^1.19.2
     "@types/cookie-parser": ^1.4.3
     "@types/cors": ^2.8.12
@@ -1411,8 +1399,11 @@ __metadata:
     node-notifier: ^10.0.1
     nodemon: ^2.0.20
     prettier: ^2.3.2
+    prisma: latest
     supertest: ^6.2.4
     typescript: ^4.9.4
+    yargs: ^17.7.2
+    zod: ^3.20.6
   languageName: unknown
   linkType: soft
 
@@ -7754,6 +7745,21 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 3d8a43c336a4942bc68080768664aca85c7bd406f018bad362fd255c41c8f4e650277f42fd65d543fce99e084124ddafee7bbfc1a5c6a8fda4cec78609dcf8d4
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^17.7.2":
+  version: 17.7.2
+  resolution: "yargs@npm:17.7.2"
+  dependencies:
+    cliui: ^8.0.1
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
+    y18n: ^5.0.5
+    yargs-parser: ^21.1.1
+  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
   languageName: node
   linkType: hard
 

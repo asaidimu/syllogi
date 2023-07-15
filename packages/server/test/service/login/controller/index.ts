@@ -1,11 +1,11 @@
-import { DataModel } from "@syllogi/model";
 import { AwilixContainer } from "awilix";
 import { DeepMockProxy } from "jest-mock-extended";
 import { mockContainer } from "../../../mock/index.js";
+import { PrismaClient } from '@prisma/client'
 
 interface State {
     controller: LoginController;
-    db: DeepMockProxy<DataModel>;
+    db: DeepMockProxy<PrismaClient>;
 }
 
 let container: AwilixContainer<System> | null = null;

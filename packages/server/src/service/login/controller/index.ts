@@ -1,4 +1,4 @@
-import { Login, LoginGroup } from "@syllogi/model"
+import { Login, LoginGroup } from "@prisma/client"
 
 declare global {
     type LoginCredentials = Pick<Login, "id"|"password"|"groups">
