@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
@@ -9,16 +9,87 @@ datasource db {
 }
 
 model LoginGroup {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  createdOn  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdOn DateTime @default(now())
 }
 
 model Login {
-    id         Int      @id @default(autoincrement())
-    groups     Int[]
-    username   String   @unique
-    password   String
-    active    Boolean  @default(false)
-    createdOn  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  groups    Int[]
+  username  String   @unique
+  password  String
+  active    Boolean  @default(false)
+  createdOn DateTime @default(now())
+  User      User[]
+}
+
+// the User table
+model User {
+  id          Int           @id @default(autoincrement())
+  fullName    String
+  phoneNumber String
+  login       Login         @relation(fields: [id], references: [id])
+  orders      Order[]
+  UserSession UserSession[]
+}
+
+model UserSession {
+  session_id    Int       @id @default(autoincrement())
+  user          User      @relation(fields: [userId], references: [id])
+  userId        Int
+  start_time    DateTime  @default(now())
+  end_time      DateTime?
+  purchase_made Boolean   @default(false)
+}
+
+model Item {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String
+  available   Boolean     @default(false)
+  orders      OrderItem[]
+}
+
+// the Order table
+model Order {
+  id        Int         @id @default(autoincrement())
+  time      DateTime    @default(now())
+  total     Float
+  status    String
+  user      User        @relation(fields: [userId], references: [id])
+  userId    Int
+  OrderItem OrderItem[]
+  Payment   Payment[]
+}
+
+// the OrderItem table
+model OrderItem {
+  id        Int   @id @default(autoincrement())
+  quantity  Int
+  order     Order @relation(fields: [orderId], references: [id])
+  orderId   Int
+  menu_item Item  @relation(fields: [itemId], references: [id])
+  itemId    Int
+}
+
+// the PaymentMethod table
+model PaymentMethod {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  payments    Payment[]
+}
+
+// the Payment table
+model Payment {
+  id             Int           @id @default(autoincrement())
+  time           DateTime      @default(now())
+  amount         Float
+  order          Order?        @relation(fields: [orderId], references: [id])
+  orderId        Int?
+  payment_method PaymentMethod @relation(fields: [id], references: [id])
+  methodId       Int
 }

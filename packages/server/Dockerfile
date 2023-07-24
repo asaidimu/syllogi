@@ -36,6 +36,9 @@ RUN yarn workspace "${PACKAGE_NAME}" run prisma generate
 # build package
 RUN yarn workspace "${PACKAGE_NAME}" run build:dist
 
+# Remove build dependencies after the build process is complete
+RUN apk del .builds-deps
+
 # packages are in dist
 FROM build as assets
 

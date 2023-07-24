@@ -1,3 +1,4 @@
+import sys
 import os
 import hashlib
 
@@ -12,7 +13,17 @@ SECRET2 = os.urandom(32).hex()
 SHA256_SECRET1 = generate_sha256_hash(SECRET1)
 SHA256_SECRET2 = generate_sha256_hash(SECRET2)
 
-# Output the generated secrets in .env format
-with open('/build/packages/server/.env', 'a') as env_file:
-    env_file.write(f"JWT_SECRET={SHA256_SECRET1}\n")
-    env_file.write(f"COOKIE_SECRET={SHA256_SECRET2}\n")
+def generate_secrets(filename):
+    try:
+        with open(filename, 'a') as file:
+            file.write(f"JWT_SECRET={SHA256_SECRET1}\n")
+            file.write(f"COOKIE_SECRET={SHA256_SECRET2}\n")
+    except IOError as e:
+            print(f'Error writing to {filename}: {e}')
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <filename>")
+        sys.exit(1)
+    filename = sys.argv[1]
+    generate_secrets(filename)

@@ -1,3 +1,3 @@
 interface ExampleController {
-    sayHello: () => Promise<string>
+  sayHello: () => Promise<string>;
 }

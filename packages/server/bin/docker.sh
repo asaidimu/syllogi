@@ -12,6 +12,10 @@ _buildImage() {
     - -t ${IMAGE_NAME}
 }
 
+_buildDevImage() {
+  docker buildx build -f Dockerfile.dev . -t ${IMAGE_NAME}
+}
+
 _startContainer() {
   docker images | grep -q ${IMAGE_NAME} || _buildImage
   docker compose up -d
@@ -37,6 +41,9 @@ main(){
     -h | --help)
       help
     ;;
+    --dev)
+      _buildDevImage
+      ;;
     --image)
       _buildImage
       ;;

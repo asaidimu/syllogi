@@ -1374,6 +1374,7 @@ __metadata:
   dependencies:
     "@faker-js/faker": ^7.3.0
     "@prisma/client": latest
+    "@syllogi/validator": ^0.0.0
     "@types/body-parser": ^1.19.2
     "@types/cookie-parser": ^1.4.3
     "@types/cors": ^2.8.12
@@ -1403,6 +1404,15 @@ __metadata:
     supertest: ^6.2.4
     typescript: ^4.9.4
     yargs: ^17.7.2
+  languageName: unknown
+  linkType: soft
+
+"@syllogi/validator@^0.0.0, @syllogi/validator@workspace:packages/validator":
+  version: 0.0.0-use.local
+  resolution: "@syllogi/validator@workspace:packages/validator"
+  dependencies:
+    "@types/node": ^18.0.0
+    typescript: ^4.9.4
     zod: ^3.20.6
   languageName: unknown
   linkType: soft

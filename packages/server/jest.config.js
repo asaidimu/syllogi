@@ -34,12 +34,12 @@ export default {
   coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
-   coverageReporters: [
-     "json",
-  //   "text",
+  coverageReporters: [
+    "json",
+    //   "text",
     "lcov",
-  //   "clover"
-   ],
+    //   "clover"
+  ],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -76,15 +76,15 @@ export default {
   // ],
 
   // An array of file extensions your modules use
-   moduleFileExtensions: [
-     "js",
-  //   "mjs",
-  //   "cjs",
-  //   "jsx",
-     // "ts",
-  //   "tsx",
-  //   "json",
-  //   "node"
+  moduleFileExtensions: [
+    "js",
+    //   "mjs",
+    //   "cjs",
+    //   "jsx",
+    // "ts",
+    //   "tsx",
+    //   "json",
+    //   "node"
   ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
@@ -94,7 +94,7 @@ export default {
   // modulePathIgnorePatterns: [],
 
   // Activates notifications for test results
-     notify: false,
+  notify: false,
 
   // An enum that specifies notification mode. Requires { notify: true }
   // notifyMode: "failure-change",
@@ -153,17 +153,17 @@ export default {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-   testMatch: [
-     "**/test/**/*.js",
-     // "**/__tests__/**/*.[jt]s?(x)",
-     // "**/?(*.)+(spec|test).[tj]s?(x)"
-   ],
+  testMatch: [
+    "**/test/**/*.js",
+    // "**/__tests__/**/*.[jt]s?(x)",
+    // "**/?(*.)+(spec|test).[tj]s?(x)"
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-   testPathIgnorePatterns: [
-     ".*/mock/.*.js",
-     // "dist/.*"
-   ],
+  testPathIgnorePatterns: [
+    ".*/mock/.*.js",
+    // "dist/.*"
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

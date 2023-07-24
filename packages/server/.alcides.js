@@ -1,11 +1,11 @@
 export default {
-    include: ['dist/tests/**/*.js', 'dist/test/**/*.js'],
-    verbose: true,
-    timeout: 1000,
+  include: ["dist/tests/**/*.js", "dist/test/**/*.js"],
+  verbose: true,
+  timeout: 1000,
 
-    watch: true,
-    files: ['dist'],
+  watch: true,
+  files: ["dist"],
 
-    parallel: false,
-    workers: 0,
-}
+  parallel: false,
+  workers: 0,
+};

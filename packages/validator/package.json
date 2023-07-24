@@ -1,0 +1,29 @@
+{
+  "name": "@syllogi/validator",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Saidimu <47994458+asaidimu@users.noreply.github.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build:ci": "yarn tsc",
+    "build:test": "echo build:test",
+    "build:watch": "yarn tsc --watch",
+    "build": "yarn tsc",
+    "ci": "yarn install --immutable",
+    "clean": "rm -rf dist",
+    "test": "echo test"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "zod": "^3.20.6"
+  }
+}

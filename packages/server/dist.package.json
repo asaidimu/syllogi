@@ -1,48 +1,42 @@
 {
-    "name": "syllogi-server",
-    "version": "1.0.0",
-    "description": "A configurable, loosely coupled typescript server framework. Hopefully ...",
-    "author": "Saidimu <47994458+asaidimu@users.noreply.github.com>",
-    "repository": "git@github.com:asaidimu/syllogi.git",
-    "license": "MIT",
-    "main": "./index.js",
-    "type": "module",
-    "directories": {
-        "test": "tests"
-    },
-    "files": ["src/**/*.js", "index.js"],
-    "scripts": {
-        "migrate:deploy": "yarn prisma migrate deploy",
-        "migrate:dev": "yarn prisma migrate dev",
-        "migrate:reset": "yarn prisma migrate reset",
-        "seed": "node ./index.js --seed",
-        "serve": "node ./index.js --serve"
-    },
-    "bin": {
-        "syllogi": "index.js"
-    },
-    "dependencies": {
-        "argon2": "^0.28.5",
-        "awilix": "^4.3.3",
-        "body-parser": "^1.20.0",
-        "cookie-parser": "^1.4.6",
-        "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
-        "express": "^4.18.1",
-        "helmet": "^5.1.0",
-        "http-status": "^1.5.0",
-        "jose": "^4.8.3",
-        "morgan": "^1.10.0",
-        "@prisma/client": "latest",
-        "prisma": "latest",
-        "yargs": "^17.7.2",
-        "zod": "^3.20.6"
-    },
-    "keywords": [
-        "framework",
-        "typescript",
-        "express",
-        "server",
-        "configurable"
-    ]
+  "name": "syllogi-server",
+  "version": "1.0.0",
+  "description": "A configurable, loosely coupled typescript server framework. Hopefully ...",
+  "author": "Saidimu <47994458+asaidimu@users.noreply.github.com>",
+  "repository": "git@github.com:asaidimu/syllogi.git",
+  "license": "MIT",
+  "main": "./index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "files": ["src/**/*.js", "index.js"],
+  "scripts": {
+    "migrate:deploy": "yarn prisma migrate deploy",
+    "migrate:dev": "yarn prisma migrate dev",
+    "migrate:reset": "yarn prisma migrate reset",
+    "seed": "node ./index.js --seed",
+    "serve": "node ./index.js --serve"
+  },
+  "bin": {
+    "syllogi": "index.js"
+  },
+  "dependencies": {
+    "argon2": "^0.28.5",
+    "awilix": "^4.3.3",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "http-status": "^1.5.0",
+    "jose": "^4.8.3",
+    "morgan": "^1.10.0",
+    "@prisma/client": "latest",
+    "prisma": "latest",
+    "yargs": "^17.7.2",
+    "zod": "^3.20.6"
+  },
+  "keywords": ["framework", "typescript", "express", "server", "configurable"]
 }

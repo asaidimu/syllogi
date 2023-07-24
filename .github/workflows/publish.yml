@@ -1,4 +1,4 @@
-name: Publis
+name: Publish
 on:
   workflow_dispatch:
   workflow_run:
@@ -10,7 +10,7 @@ jobs:
   build:
       strategy:
         matrix:
-          package: ["@syllogi/server", "@syllogi/client", "@syllogi/model"]
+          package: ["@syllogi/server", "@syllogi/client"]
 
       runs-on: ubuntu-latest
       if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
@@ -28,7 +28,7 @@ jobs:
         - name: setup yarn
           run: |
             yarn set version stable
-            yarn install
+            yarn install --immutable
 
         - name: build
           run: yarn workspace ${{ matrix.package }} build:docker

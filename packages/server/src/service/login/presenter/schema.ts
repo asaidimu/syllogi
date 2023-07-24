@@ -1,12 +1,6 @@
-import { z, ZodType } from "zod"
-
-export const LoginCredentials: ZodType = z.object({
-    username: z.string(),
-    password: z.string()
-})
-
+import { LoginCredentials } from "@syllogi/validator";
 const validator = {
-    "POST:/authenticate": LoginCredentials
-}
+    "POST:/authenticate": LoginCredentials,
+};
 
-export default validator
+export default validator;
